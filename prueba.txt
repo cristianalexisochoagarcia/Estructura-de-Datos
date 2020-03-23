@@ -392,3 +392,161 @@ int menu() {
 }
 
 
+/*COLA*/
+
+
+#include<stdio.h>
+#include<iostream>
+
+struct nodo
+{
+	int nuevo;  
+    struct nodo *siguiente;
+};
+ 
+ 
+
+struct cola
+{
+    nodo *delante;
+    nodo *atras  ;
+};
+ 
+ 
+
+void encolar( struct cola &i, int dato )
+{
+     struct nodo *aux = new(struct nodo);
+     
+     aux->nuevo = dato;
+     aux->siguiente = NULL;
+     
+     if( i.delante == NULL)
+         i.delante = aux;  
+     else
+         (i.atras)->siguiente = aux;
+         
+     i.atras = aux;        
+     
+}
+ 
+
+int desencolar( struct cola &i )
+{
+     int num;
+     struct nodo *aux ;
+     
+     aux = i.delante;     
+     num = aux->nuevo;
+     i.delante = (i.delante)->siguiente;
+     delete(aux);         
+     
+     return num;
+}
+ 
+                      
+void muestraCola( struct cola i)
+{
+     struct nodo *aux;
+     
+     aux = i.delante;
+         
+     while( aux != NULL )
+     {
+            printf("   ",aux->nuevo);
+            aux = aux->siguiente;
+     }    
+}
+ 
+
+void vaciaCola( struct cola &i)
+{
+     struct nodo *aux;
+     
+     while( i.delante != NULL)
+     {
+            aux = i.delante;
+            i.delante = aux->siguiente;
+            delete(aux);
+     }
+     i.delante = NULL;
+     i.atras   = NULL;
+     
+}
+ 
+
+void menu()
+{
+    printf("""\n\t COLAS \n\n");
+    printf("\n 1. Encolar");
+    printf("\n 2. Desencolar");
+    printf("\n 3. Mostrar cola");
+    printf("\n 4. Vaciar cola");
+    printf("\n 5. Slir");
+    printf("\n Digite una opcion: ");
+}
+ 
+     
+int main()
+{
+    struct cola i;
+   
+    i.delante = NULL;
+    i.atras   = NULL;
+   
+   
+    int num; 
+    int opc;    
+    int x;   
+
+    do
+    {
+        menu();  
+		scanf("%d", &opc);
+ 
+        switch(opc)
+        {
+            case 1:
+ 
+                 printf("\n Encolar: "); 
+				 scanf("%d", &num);
+                 encolar( i, num );
+                 printf("\n\n\t\tNumero "); 
+				 scanf("%d", &num);
+				 printf(" Encolado\n\n");
+            break;
+ 
+ 
+            case 2:
+ 
+                 x = desencolar( i );
+                 printf("\n\n\t\tNumero ");
+				 scanf("%d", &x);
+				 printf(" ¡¡¡DESENCLAO!!!\n\n");
+            break;
+                 
+ 
+            case 3:
+ 
+                 printf("\n\n Mostrando cola\n\n");
+                 if(i.delante!=NULL) muestraCola( i );
+                 else  printf("\n\n\t¡¡¡Cola vacia!!!\n\n");
+            break;
+ 
+ 
+            case 4:
+ 
+                 vaciaCola(i);
+                 printf("\n\n\t\tListo\n\n");
+            break;
+           
+         }
+ 
+        printf("\n\n");
+        system("pause");  system("cls");
+ 
+    }while(opc!=5);
+   
+   
+    return 0;
+} 
