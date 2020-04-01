@@ -1,0 +1,159 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+
+struct persona{
+    int ope;
+    char *nombre;
+    struct persona *siguiente;
+};
+
+typedef struct persona Bloq;
+
+Bloq *inicio = NULL;	
+Bloq *actual = NULL;
+
+char* getNom();
+void clearBuffer();
+int getOpe();
+
+void push();
+void pop();
+void Crear();
+void ContarBloques();
+void ImprimirPila();
+
+int main(){
+    return menu();
+}
+
+void push(){
+
+    Bloq *bloq = (struct persona*)malloc(sizeof(struct persona));
+
+    if(NULL == bloq){
+        printf("\n Error en creacion de bloque\n");
+    }
+
+    bloq->ope = getOpe();
+    clearBuffer();
+    bloq->nombre=getNom();
+    bloq->siguiente = inicio;
+    inicio = bloq;
+
+}
+
+void pop(){
+
+    if(NULL == inicio){
+            printf("La pila esta vacia \n");
+    }else{
+        printf("\n ******-Elemento Top Removido-****** \n");
+        Bloq *bloq = inicio;
+        printf("\n Operador: %d ",bloq->ope);
+        printf("Nombre: %s \n", bloq->nombre);
+
+        inicio=bloq->siguiente;
+        free(bloq);
+    }
+
+}
+
+void ImprimirPila(void){
+
+    if(NULL == inicio){
+        printf("La pila esta vacia \n");
+    }else{
+        Bloq *bloq = inicio;
+        printf("\n ******-Inicio de la Pila-****** \n");
+
+        while(bloq != NULL)
+        {
+            printf("\n Ooperador: %d ",bloq->ope);
+            printf("Nombre: %s \n", bloq->nombre);
+            bloq = bloq->siguiente;
+        }
+
+        printf("\n ******-Final de la Pila-****** \n");
+
+    }
+
+}
+
+void ContarBloques(void){
+    Bloq *bloq = inicio;
+    int i=0;
+
+    while(bloq != NULL){
+        i++;
+        bloq = bloq->siguiente;
+    }
+
+    printf("\n Cantidad de Bloques: %d\n", i);
+
+    return;
+}
+
+int getOpe() {
+  int num;
+  printf("\n Ingrese el numero de Operador: ");
+  scanf("%d" , &num);
+  return num;
+}
+
+char* getNom() {
+  char d,*nuevo;
+
+  int i = 0;
+
+  nuevo = (char*) malloc(sizeof(char)*100);
+
+  printf("\n Ingrese el nombre: ");
+  while((d = getchar()) != EOF && d != '\n') {
+    nuevo[i++] = d;
+  }
+
+  return nuevo;
+}
+
+void clearBuffer() {
+  while(getchar() != '\n')
+    ;
+}
+
+int menu() {
+  char c;
+
+  do {
+    printf("\n******-MENU: pila-******");
+    printf("\nHaga una seleccion:");
+    printf("\n 1. push()");
+    printf("\n 2. pop()");
+    printf("\n 3. ImprimirPila()");
+    printf("\n 4. ContarBloques()");
+    printf("\n s: salir.\n");
+    c = getchar();
+
+    switch(c) {
+      case '1':
+          clearBuffer();
+          push();
+        break;
+      case '2':
+          clearBuffer();
+          pop();
+        break;
+      case '3':
+          clearBuffer();
+          ImprimirPila();
+        break;
+      case '4':
+          clearBuffer();
+          ContarBloques();
+        break;
+      default:
+        break;
+    }
+  } while(c != 's' && c != EOF);
+}
+
