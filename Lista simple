@@ -1,0 +1,181 @@
+#include <stdio.h>
+#include <conio.h>
+
+typedef struct nodo{
+	int dato;
+	struct nodo* siguiente;
+} nodo;
+
+nodo* primero = NULL;
+nodo* ultimo = NULL;
+
+void insertar();
+void buscar();
+void modificar();
+void eliminar();
+void desplegarLista();
+
+int main(){
+	int opc = 0;
+	do{
+		printf("\n-------------------------------------");
+		printf("\n********Lista simple********");
+		printf("\n 1. Insertar");
+		printf("\n 2. Buscar");  
+		printf("\n 3. Modificar");
+		printf("\n 4. Elimiar");
+		printf("\n 5. Imprimir");
+		printf("\n 6. Salir");        
+		printf("\n-------------------------------------");
+		printf("\n\n Escoja una Opcion: ");
+		scanf("%d", &opc);
+		switch(opc){
+			case 1:
+				printf("\n\n Dato ingresado en la lista\n\n");
+				insertar();
+				break;
+			case 2:
+				printf("\n\n Busca dato en la lista\n\n");
+				buscar();
+				break;	
+			case 3:
+				printf("\n\n Modificar dato de la lista\n\n");
+				modificar();
+				break;
+			case 4:
+				printf("\n\n Dato eliminado de la lista\n\n");
+				eliminar();
+				break;
+			case 5:
+				printf("\n\n Imprimir lista\n\n");	
+				desplegarLista();
+				break;
+			case 6:
+				printf("\n\n...Programa finalizado...");
+				break;
+			default:
+				printf("\n\¡¡¡¡¡Opcion no Valida!!!!!\n\n");	
+		}
+	}while(opc != 6);
+	return 0;
+}
+
+
+void insertar(){
+	nodo* nuevo = (nodo*) malloc(sizeof(nodo));
+	printf(" Ingrese el dato que contendra la lista: ");
+	scanf("%d", &nuevo->dato);
+	if(primero==NULL){
+		primero = nuevo;
+		primero->siguiente = NULL;
+		ultimo = nuevo;
+	}else{
+		ultimo->siguiente = nuevo;
+		nuevo->siguiente = NULL;
+		ultimo = nuevo;
+	}
+	printf("\n Dato ingresado con exito\n\n");
+}
+
+void buscar(){
+	nodo* actual = (nodo*) malloc(sizeof(nodo));
+	actual = primero;
+	int nodoBuscado = 0, encontrado = 0;
+	printf(" Ingrese el dato a Buscar: ");
+	scanf("%d", &nodoBuscado);
+	if(primero!=NULL){
+		while(actual != NULL && encontrado != 1){
+			
+			if(actual->dato == nodoBuscado){
+				printf("\n El nodo con el dato  %d  Encontrado\n\n", nodoBuscado);
+				encontrado = 1;
+			}
+				
+			actual = actual->siguiente;
+		}
+		if(encontrado == 0){
+			printf("\n Dato no encontrado\n\n");
+		}
+	}else{
+		printf("\n La lista vacia!!!!!!!!\n\n");
+	}
+}
+
+void modificar(){
+	nodo* actual = (nodo*) malloc(sizeof(nodo));
+	actual = primero;
+	int nodoBuscado = 0, encontrado = 0;
+	printf(" Ingrese el dato a modificar: ");
+	scanf("%d", &nodoBuscado);
+	if(primero!=NULL){
+		while(actual != NULL && encontrado != 1){
+			
+			if(actual->dato == nodoBuscado){
+				printf("\n El dato  %d  Encontrado", nodoBuscado);
+				printf("\n Ingrese el nuevo dato para este Nodo: ");
+				scanf("%d", &actual->dato);
+				printf("\n Nodo modificado con exito\n\n");
+				encontrado = 1;
+			}
+				
+			actual = actual->siguiente;
+		}
+		if(encontrado == 0){
+			printf("\n Dato no encontrado\n\n");
+		}
+	}else{
+		printf("\n La lista se encuentra vacia!!!!!!!!!\n\n");
+	}
+}
+
+void eliminar(){
+	nodo* actual = (nodo*) malloc(sizeof(nodo));
+	actual = primero;
+	nodo* anterior = (nodo*) malloc(sizeof(nodo));
+	anterior = NULL;
+	int nodoBuscado = 0, encontrado = 0;
+	printf(" Ingrese el dato a Buscar para Eliminar: ");
+	scanf("%d", &nodoBuscado);
+	if(primero!=NULL){
+		while(actual != NULL && encontrado != 1){
+			
+			if(actual->dato == nodoBuscado){
+	
+				if(actual == primero){
+					primero = primero->siguiente;
+				}else if(actual == ultimo){
+					anterior->siguiente = NULL;
+					ultimo = anterior;
+				}else{
+					anterior->siguiente = actual->siguiente;
+				}
+				
+				printf("\ Dato eliminado");
+				encontrado = 1;
+			}
+			anterior = actual;
+			actual = actual->siguiente;
+		}
+		if(encontrado == 0){
+			printf("\n Dato no encontrado\n\n");
+		}else{
+			free(anterior);
+		}
+	}else{
+		printf("\n¡¡¡¡¡La lista se encuentra vacia!!!!!\n\n");
+	}
+}
+
+void desplegarLista(){
+	nodo* actual = (nodo*) malloc(sizeof(nodo));
+	actual = primero;
+	if(primero!=NULL){
+		while(actual != NULL){
+			printf("\n %d", actual->dato);
+			actual = actual->siguiente;
+		}
+	}else{
+		printf("\n¡¡¡¡¡La lista se encuentra vacia!!!!!\n\n");
+	}
+}
+
