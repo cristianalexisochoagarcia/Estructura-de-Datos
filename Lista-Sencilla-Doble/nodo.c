@@ -1,4 +1,3 @@
-
 /**
  \file nodo.c
  \author Ochoa Garcia Cristian Alexis
@@ -6,19 +5,20 @@
  \date 01 / 04 /2020
  \copyright GNU Public License v3.
  Implementación de las funciones básicas
- de una lista Sencilla Doble:
+ de una lista sencilla doble:
  + insertar
  + buscar
  + modificar
  + eliminar
- + imprimir(Primero al Ultimo)
- + imprimir(Ultimo al Primero
+ + imprimirPU();	//imprimir de Primero al Ultimo
+ + imprimirUP();	//imprimir del Ultimo al Primero
 */
 
 #include "nodo.h"
 
 Nodo* primero = NULL;
 Nodo* ultimo = NULL;
+
 
 void insertar(){
 	Nodo* nuevo = (Nodo*)malloc(sizeof(Nodo));
