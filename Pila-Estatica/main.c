@@ -1,3 +1,4 @@
+
 #include"estatic.h"
 	
 int main(){
