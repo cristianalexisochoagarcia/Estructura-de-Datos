@@ -1,14 +1,13 @@
 #include"busq.h"
 
 int main(){
-	int n,i,dato;
-	char op;
+	int n,i,dato, op;
 	arb *p = NULL,*x; /* Árbol Vacío */
 	while(1){
-	menu();
-	op = tolower(getch()); 	
+	menu();	
+	scanf("%d", &op);
 	switch(op){
-	case 'a':
+	case 1:
 	printf("Numero de nodos del arbol: ");
 	scanf("%d",&n);
 	n = abs(n);//	Devuelve el valor aabsouto de (n)
@@ -20,7 +19,7 @@ int main(){
 	p = insertar(dato,p);
 	}
 	break;
-	case 'b':
+	case 2:
 	printf("Numero de nodos del arbol: ");
 	scanf("%d",&n);
 	n = abs(n);//Devuelve el vaor absoluto de (n)
@@ -31,12 +30,12 @@ int main(){
 	p = insertar(dato,p);//	Carga primer dato
 }
 	break;
-	case 'c':
+	case 3:
 	printf("Arbol de busqueda");
 	ver(0,p);
 	break;
 	
-	case 'd':
+	case 4:
 	printf("\n\nRecorrido en Pre-Orden:");
 	preorden(p);
 	printf("\nRecorrido en Orden:");
@@ -45,7 +44,7 @@ int main(){
 	postorden(p);
 	break;
 	
-	case 'e':
+	case 5:
 	printf("\n\tDato a Buscar: ");
 	scanf("%d",&dato);
 	x = buscar(dato,p);
@@ -53,7 +52,7 @@ int main(){
 	else printf("No se encontro el dato %d",dato);	
 	break;
 
-	case 'f':
+	case 6:
 	x = min(p);
 	printf("\n\n\tMinimo = %d",x -> dato);
 	x = max(p);
@@ -61,15 +60,15 @@ int main(){
 	break;
 
 
-	case 'g':
+	case 7:
 	printf("\n\n\tNodos : %d\n\n\tAltura =%d",n_Nodos(p),altura(p));
 	break;
 
 	
-	case 'i':
+	case 8:
 	borrar(p); /* Borra el árbol */
+	printf("Progarma finalizado!!!!");
 	break;
 }
-getch();
-}
+
 }

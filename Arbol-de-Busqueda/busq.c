@@ -114,6 +114,8 @@ int altura(arb *p){
 	else{
 	return(p -> altura);
 	}
+
+	return(altura);
 }
 
 
@@ -212,3 +214,4 @@ void ver(int cont,arb *p){
 	ver(cont + 1,p -> izquierdo);//	Imprimir ahora el hijo izquierdo
 	}
 }
+
